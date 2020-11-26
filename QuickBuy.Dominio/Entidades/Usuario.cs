@@ -2,7 +2,7 @@
 
 namespace QuickBuy.Dominio.Entidades
 {
-    public class Usuario
+    public class Usuario : Entidade
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -14,5 +14,27 @@ namespace QuickBuy.Dominio.Entidades
         /// Um usuário pode ter nenhum ou muitos pedidos
         /// </summary>
         public ICollection<Pedido> Pedidos { get; set; }
+
+        public override void Validate()
+        {
+            LimparMensagensValidacao();
+
+            if (string.IsNullOrEmpty(Email))
+            {
+                AdicionarCritica("Validação: Email precisa ser informado.");
+            }
+            if (string.IsNullOrEmpty(Senha))
+            {
+                AdicionarCritica("Validação: Senha precisa ser informado.");
+            }
+            if (string.IsNullOrEmpty(Nome))
+            {
+                AdicionarCritica("Validação: Nome precisa ser informado.");
+            }
+            if (string.IsNullOrEmpty(SobreNome))
+            {
+                AdicionarCritica("Validação: SobreNome precisa ser informado.");
+            }
+        }
     }
 }
